@@ -1,6 +1,6 @@
 const Forecast = ({data,min}) => {
     return (
-        <div className="forecast-box">
+        <div id="forecast-box">
             <p>{data.dt_txt.slice(5,10)}</p>
             <div id='forecast-icon'>
                 <img src={`icons/${data.weather[0].icon}.png`}></img>

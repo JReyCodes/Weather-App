@@ -88,29 +88,29 @@ body {
   flex-direction: column;
   justify-content: space-around;
 
-  .forecast-box {
-    display: flex;
-    color: white;
-    justify-content: space-around;
-    align-items: center;
-    background-color: #2b2d42;
-    width: 400px;
-    height: 80px;
-    border-radius: 20px;
-    box-shadow: 6px 6px 20px rgb(72, 69, 69);
-    overflow: auto;
 
-    #forecast-icon {
-      display: flex;
-      width: 25%;
-      gap: 10px;
-      align-items: center;
-    }
     img {
       height: 50px ;
       width: 50px;
     }
-  }
+  
+    #forecast-box {
+      display: flex !important;
+      color: white;
+      justify-content: space-around;
+      align-items: center;
+      background-color: #2b2d42;
+      width: 400px;
+      height: 80px;
+      border-radius: 20px;
+      box-shadow: 6px 6px 20px rgb(72, 69, 69);
+  
+    }
+
+    #forecast-icon {
+      display: flex !important;
+      width: 25%;
+      gap: 10px;
+      align-items: center;
+    }
 }
-
-
