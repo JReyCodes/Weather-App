@@ -1,4 +1,4 @@
-const Forecast = ({data,min}) => {
+const Forecast = ({data,min,max}) => {
     return (
         <div id="forecast-box">
             <p>{data.dt_txt.slice(5,10)}</p>
@@ -8,11 +8,11 @@ const Forecast = ({data,min}) => {
             </div>
             <div>
                 <p>MIN</p>  
-                <p>{Math.floor(min.main.temp)}°F</p>
+                <p>{Math.floor(min)}°F</p>
             </div>
             <div>
                 <p>MAX</p>
-                <p>{Math.floor(data.main.temp)}°F</p>
+                <p>{Math.floor(max)}°F</p>
             </div>
         </div>
     )

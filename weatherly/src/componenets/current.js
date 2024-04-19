@@ -1,8 +1,16 @@
 const Current = ({data}) => {
+
+    const getDate = () => {
+    let currentDate = new Date();
+    let month = currentDate.getMonth() + 1;
+    let day = currentDate.getDate();
+    let numericalDate = month.toString().padStart(2, '0') + '/' + day.toString().padStart(2, '0');
+    return numericalDate
+    }
     return (
         <div className="current-container">
             <div id="current-heading">
-                <h1>04-14</h1>
+                <h1>{getDate()}</h1>
                 <h1 id="city">{data.city}</h1>
             </div>
             <img src={`icons/${data.weather[0].icon}.png`}

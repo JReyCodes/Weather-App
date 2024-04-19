@@ -9,7 +9,6 @@ function App() {
   const [currentWeather,setCurrentWeather] = useState(null)
   const [forecast,setForecast] = useState(null)
 
-
   const handleOnSearchChange = (searchData) => {
     const [lat,lon] = searchData.value.split(" ")
     const currentWeatherFetch = fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${'139a51219868f5b39dee6b05f470307b'}&units=imperial`)
@@ -21,13 +20,27 @@ function App() {
         const forecastResponse = await response[1].json();
         setCurrentWeather({ city: searchData.label, ...weatherResponse});
 
-        setForecast({ city: searchData.label, ...forecastResponse});
+        const temps = {}
+        forecastResponse.list.map((data,i = 1) => {
+          let day = (Math.floor(i/8)) 
+          if(temps[day]){
+            if(temps[day][0] > data.main.temp_min){
+              temps[day][0] = data.main.temp_min
+            }
+            if(temps[day][1] < data.main.temp_max){
+              temps[day][1] = data.main.temp_max
+            } 
+          } else {
+            temps[day] = [data.main.temp_min,data.main.temp_max]
+          }
+        })
+        setForecast({ city: searchData.label, temps, ...forecastResponse});
       })
       .catch((err) => console.log(err))
 
   }
 
-  console.log(currentWeather);
+  // console.log(currentWeather);
   console.log(forecast);
 
   return (
@@ -39,12 +52,11 @@ function App() {
         {currentWeather && <Current data={currentWeather}/>}
           {!currentWeather && <p>Welcome to the site! In order to use simply enter your desired location in the search bar above and it will populate with options for you to choose from. The List of cities are filitered to avoid smaller cities popping up and go ahead and give it a try!</p>}
           <div className='forecast'>
-            {forecast && <Forecast min={forecast.list[2]} data={forecast.list[5]}/>}
-            {forecast && <Forecast min={forecast.list[10]} data={forecast.list[13]}/>}
-            {forecast && <Forecast min={forecast.list[18]} data={forecast.list[21]}/>}
-            {forecast && <Forecast min={forecast.list[26]} data={forecast.list[29]}/>}
-            {forecast && <Forecast min={forecast.list[34]} data={forecast.list[37]}/>}
-
+            {forecast && <Forecast data={forecast.list[0]} min={forecast.temps[0][0]} max={forecast.temps[0][1]}/>}
+            {forecast && <Forecast data={forecast.list[8]} min={forecast.temps[1][0]} max={forecast.temps[1][1]}/>}
+            {forecast && <Forecast data={forecast.list[16]} min={forecast.temps[2][0]} max={forecast.temps[2][1]}/>}
+            {forecast && <Forecast data={forecast.list[24]} min={forecast.temps[3][0]} max={forecast.temps[3][1]}/>}
+            {forecast && <Forecast data={forecast.list[32]} min={forecast.temps[4][0]} max={forecast.temps[4][1]}/>}
           </div>
         </div>
       </div>
